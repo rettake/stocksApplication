@@ -6,7 +6,7 @@ import { BsFillCaretUpFill } from "react-icons/bs";
 
 const StockList = () => {
     const [stock, setStock] = useState([]);
-    const [watchList, setWatchList] = useState(['GOOGL', 'AMZN', 'MSFT']);
+    const [watchList, setWatchList] = useState(['GOOGL', 'AMZN', 'MSFT', 'AAPL', 'USD', 'BTC']);
 
     const changeTextColor = (value) => {
         return value < 0 ? 'danger' : 'success';
