@@ -1,10 +1,20 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 import finnHub from "../apis/finnHub";
+import { BsFillCaretDownFill } from "react-icons/bs";
+import { BsFillCaretUpFill } from "react-icons/bs";
 
 const StockList = () => {
     const [stock, setStock] = useState([]);
     const [watchList, setWatchList] = useState(['GOOGL', 'AMZN', 'MSFT']);
+
+    const changeTextColor = (value) => {
+        return value < 0 ? 'danger' : 'success';
+    };
+
+    const renderIcon = (value) => {
+      return value < 0 ? <BsFillCaretDownFill /> : <BsFillCaretUpFill />;
+    };
 
     useEffect(() => {
         let isMounted = true;
@@ -59,8 +69,16 @@ const StockList = () => {
                             <tr className="table-row" key={stockData.symbol}>
                                 <th scope="row">{stockData.symbol}</th>
                                 <td>{stockData.data.c}</td>
-                                <td>{stockData.data.d}</td>
-                                <td>{stockData.data.dp}</td>
+                                <td
+                                    className={`text-${changeTextColor(stockData.data.d)}`}
+                                >
+                                    {stockData.data.d} {renderIcon(stockData.data.d)}
+                                </td>
+                                <td
+                                    className={`text-${changeTextColor(stockData.data.dp)}`}
+                                >
+                                    {stockData.data.dp} {renderIcon(stockData.data.dp)}
+                                </td>
                                 <td>{stockData.data.h}</td>
                                 <td>{stockData.data.l}</td>
                                 <td>{stockData.data.o}</td>
