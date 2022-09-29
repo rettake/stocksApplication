@@ -5,7 +5,7 @@ import StockOverviewPage from "./pages/StockOverviewPage";
 
 function App() {
   return (
-    <div className="App">
+    <main className="container">
       <BrowserRouter>
         <Routes>
             <Route
@@ -18,7 +18,7 @@ function App() {
             />
         </Routes>
       </BrowserRouter>
-    </div>
+    </main>
   );
 }
 
