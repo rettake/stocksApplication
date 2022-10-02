@@ -15,7 +15,7 @@ function App() {
                       element={<StockOverviewPage />}
                   />
                   <Route
-                      path='/details:symbol'
+                      path='/details/:symbol'
                       element={<StockDetailsPage />}
                   />
               </Routes>

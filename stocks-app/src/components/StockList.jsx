@@ -1,6 +1,6 @@
 import React, {createContext} from 'react';
 import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import finnHub from "../apis/finnHub";
 import { BsFillCaretDownFill } from "react-icons/bs";
 import { BsFillCaretUpFill } from "react-icons/bs";
@@ -31,14 +31,13 @@ const StockList = () => {
                     });
                 }));
 
-                const data = responses.map(( response) => {
+                const data = responses.map((response) => {
                     return {
                        data: response.data,
                        symbol: response.config.params.symbol
                     }
                 });
 
-                console.log(data)
                 if (isMounted) {
                     setStock(data);
                 }
