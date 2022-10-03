@@ -2,6 +2,16 @@ import React, {useEffect, useState} from 'react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import finnHub from "../apis/finnHub";
+import StockChart from "../components/StockChart";
+
+const formatData = (data) => {
+    return data.t.map((el, index) => {
+        return {
+            x: el * 1000,
+            y: Math.floor(data.c[index])
+        }
+    })
+}
 
 const StockDetailsPage = () => {
     const {symbol} = useParams();
@@ -13,12 +23,13 @@ const StockDetailsPage = () => {
             const currentTime = Math.floor(date.getTime() / 1000);
 
             let oneDay;
-            if (date.getDay() === 0) {
-                oneDay = currentTime - 2 * 24 * 60 * 60;
-            } else if (date.getDay() === 7) {
-                oneDay = currentTime - 3  * 24 * 60 * 60;
+
+            if (date.getDay() === 6) {
+                oneDay = currentTime - 2 * 24 * 60 * 60; // 2 * 24 * 60 * 60
+            } else if (date.getDay() === 0) {
+                oneDay = currentTime - 3  * 24 * 60 * 60; // 3  * 24 * 60 * 60
             } else {
-                oneDay = currentTime -  24 * 60 * 60;
+                oneDay = currentTime - 24 * 60 * 60; // 24 * 60 * 60
             }
 
             const oneWeek = currentTime - 7 * 24 * 60 * 60;
@@ -40,7 +51,7 @@ const StockDetailsPage = () => {
                             to: currentTime,
                             resolution: 60
                         }
-                    }) ,finnHub.get('/stock/candle', {
+                    }) , finnHub.get('/stock/candle', {
                         params: {
                             symbol,
                             from: oneYear,
@@ -48,35 +59,33 @@ const StockDetailsPage = () => {
                             resolution: 60
                         }
                     })
-
                 ]);
 
-                const data = responses.map((response) => {
-                    return {
-                        x: responses.data.t,
-                        y: responses.data.c
-                    }
-                });
-
                 console.log(responses);
+
+                setChartData({
+                    day: formatData(responses[0].data),
+                    week: formatData(responses[1].data),
+                    year: formatData(responses[2].data)
+                })
             } catch (error) {
                 console.log(error)
             }
-
-            // const responseDay = await
-            // const responseWeek = await
-            //
-            // const responseYear = await
-
         }
         fetchData();
-    }, [])
+    }, [symbol])
 
     return (
         <div>
-            StockDetailsPage {symbol};
+            {chartData && (
+                 <div>
+                     <StockChart chartData={chartData} symbol={symbol}/>
+                 </div>
+            )}
         </div>
     );
 };
+
+
 
 export default StockDetailsPage;

@@ -76,6 +76,9 @@ const StockList = () => {
                                 onClick={() => {
                                     handleStockSelect(stockData.symbol);
                                 }}
+                                style={{
+                                    cursor: 'pointer'
+                                }}
                                 className="table-row"
                                 key={stockData.symbol}
                             >
