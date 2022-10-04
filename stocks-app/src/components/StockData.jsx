@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import finnHub from "../apis/finnHub";
 
 const StockData = ({symbol}) => {
-    const [stockData, setStockData] = useState()
+    const [stockData, setStockData] = useState({})
     let isMounted = true;
 
     useEffect(() => {
