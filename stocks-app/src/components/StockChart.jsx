@@ -12,15 +12,11 @@ const StockChart = ({chartData, symbol}) => {
             case '7d':
                 return week;
             case '1y':
-                return year
+                return year;
             default:
                 return day;
         }
     };
-
-    const color = determineTimeFormat()[determineTimeFormat().length -1].y - determineTimeFormat()[0].y
-        ? '#26C281'
-        : '#ed3419'
 
     // const changeColorHandler = () => {
     //     if (dateFormat === '24h') {
@@ -31,6 +27,11 @@ const StockChart = ({chartData, symbol}) => {
     //         return ['#E91E63']
     //     }
     // }
+
+    const color = determineTimeFormat()[determineTimeFormat().length -1].y - determineTimeFormat()[0].y
+        ? '#26C281'
+        : '#ed3419'
+
 
     const options = {
         title: {
